@@ -24,7 +24,7 @@ meta:
 common:
 	# dependencies with other addons, a list of them separated by spaces 
 	# or use += in several lines
-	ADDON_DEPENDENCIES = ofxOsc
+	# ADDON_DEPENDENCIES = ofxOsc
 	# ADDON_DEPENDENCIES +=
 	
 	# include search paths, this will be usually parsed from the file system
