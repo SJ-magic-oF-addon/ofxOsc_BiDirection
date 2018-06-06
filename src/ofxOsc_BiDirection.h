@@ -25,6 +25,12 @@ private:
 
 	ofxOscSender sender;
 	
+	/****************************************
+	noncopyable
+	****************************************/
+	void operator =(const OSC_SEND& src);
+	OSC_SEND(const OSC_SEND& src);
+	
 public:
 	OSC_SEND()
 	: Port(-1)
@@ -63,6 +69,12 @@ class OSC_RECEIVE{
 private:
 	int Port;
 	ofxOscReceiver	receiver;
+	
+	/****************************************
+	noncopyable
+	****************************************/
+	void operator =(const OSC_RECEIVE& src);
+	OSC_RECEIVE(const OSC_RECEIVE& src);
 	
 public:
 	OSC_RECEIVE()
@@ -108,6 +120,12 @@ public:
 **************************************************/
 class OSC_TARGET{
 private:
+	/****************************************
+	noncopyable
+	****************************************/
+	void operator =(const OSC_TARGET& src);
+	OSC_TARGET(const OSC_TARGET& src);
+	
 public:
 	OSC_SEND	OscSend;
 	OSC_RECEIVE	OscReceive;
