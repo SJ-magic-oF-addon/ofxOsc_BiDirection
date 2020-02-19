@@ -55,10 +55,10 @@ public:
 			sender.setup(IP, Port);
 		}
 	}
-	void sendMessage(ofxOscMessage &message)
+	void sendMessage(ofxOscMessage &message, bool wrapInBundle = true)
 	{
 		if(Port != -1){
-			sender.sendMessage(message);
+			sender.sendMessage(message, wrapInBundle);
 		}
 	}
 };
@@ -106,7 +106,16 @@ public:
 		}
 	}
 	
-	bool getNextMessage(ofxOscMessage *msg)
+	bool getNextMessage(ofxOscMessage& msg)
+	{
+		if(Port == -1){
+			return false;
+		}else{
+			return receiver.getNextMessage(msg);
+		}
+	}
+	
+	bool getNextMessage(ofxOscMessage* msg)
 	{
 		if(Port == -1){
 			return false;

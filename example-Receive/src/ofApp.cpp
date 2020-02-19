@@ -49,7 +49,7 @@ void ofApp::update(){
 	********************/
 	while(Osc.OscReceive.hasWaitingMessages()){
 		ofxOscMessage m_receive;
-		Osc.OscReceive.getNextMessage(&m_receive);
+		Osc.OscReceive.getNextMessage(m_receive); // 引数がpointerから参照に変わった.
 		
 		if(m_receive.getAddress() == "/MousePos"){
 			OSC_mouseX = m_receive.getArgAsFloat(0);
