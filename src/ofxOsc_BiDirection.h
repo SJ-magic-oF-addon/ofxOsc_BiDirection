@@ -31,12 +31,7 @@ private:
 	void operator =(const OSC_SEND& src);
 	OSC_SEND(const OSC_SEND& src);
 	
-public:
-	OSC_SEND()
-	: Port(-1)
-	{
-	}
-	OSC_SEND(const char* _IP, int _Port)
+	void _setup(const char* _IP, int _Port)
 	{
 		if(_Port != -1){
 			sprintf(IP, "%s", _IP);
@@ -46,15 +41,22 @@ public:
 		}
 	}
 	
+public:
+	OSC_SEND()
+	: Port(-1)
+	{
+	}
+	
+	OSC_SEND(const char* _IP, int _Port)
+	{
+		_setup(_IP, _Port);
+	}
+	
 	void setup(const char* _IP, int _Port)
 	{
-		if(_Port != -1){
-			sprintf(IP, "%s", _IP);
-			Port = _Port;
-			
-			sender.setup(IP, Port);
-		}
+		_setup(_IP, _Port);
 	}
+	
 	void sendMessage(ofxOscMessage &message, bool wrapInBundle = true)
 	{
 		if(Port != -1){
@@ -76,12 +78,7 @@ private:
 	void operator =(const OSC_RECEIVE& src);
 	OSC_RECEIVE(const OSC_RECEIVE& src);
 	
-public:
-	OSC_RECEIVE()
-	: Port(-1)
-	{
-	}
-	OSC_RECEIVE(int _Port)
+	void _setup(int _Port)
 	{
 		if(_Port != -1){
 			Port = _Port;
@@ -89,12 +86,19 @@ public:
 		}
 	}
 	
+public:
+	OSC_RECEIVE()
+	: Port(-1)
+	{
+	}
+	OSC_RECEIVE(int _Port)
+	{
+		_setup(_Port);
+	}
+	
 	void setup(int _Port)
 	{
-		if(_Port != -1){
-			Port = _Port;
-			receiver.setup(Port);
-		}
+		_setup(_Port);
 	}
 	
 	bool hasWaitingMessages()
@@ -108,20 +112,14 @@ public:
 	
 	bool getNextMessage(ofxOscMessage& msg)
 	{
-		if(Port == -1){
-			return false;
-		}else{
-			return receiver.getNextMessage(msg);
-		}
+		if(Port == -1)	return false;
+		else			return receiver.getNextMessage(msg);
 	}
 	
 	bool getNextMessage(ofxOscMessage* msg)
 	{
-		if(Port == -1){
-			return false;
-		}else{
-			return receiver.getNextMessage(msg);
-		}
+		if(Port == -1)	return false;
+		else			return receiver.getNextMessage(msg);
 	}
 };
 
