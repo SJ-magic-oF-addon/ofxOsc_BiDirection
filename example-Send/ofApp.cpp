@@ -8,7 +8,7 @@
 /******************************
 ******************************/
 ofApp::ofApp()
-: Osc("127.0.0.1", 12345, 12346)
+: Osc("127.0.0.1", 12345, -1)
 {
 }
 
@@ -35,20 +35,20 @@ void ofApp::setup(){
 	ofSetWindowShape(WIDTH, HEIGHT);
 	ofSetEscapeQuitsApp(false);
 	
-	ofEnableAlphaBlending();
-	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	// ofEnableBlendMode(OF_BLENDMODE_ADD);
-	// ofEnableSmoothing();
+	ofEnableAntiAliasing();
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA); // OF_BLENDMODE_DISABLED, OF_BLENDMODE_ALPHA, OF_BLENDMODE_ADD
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	ofxOscMessage m;
-	m.setAddress("/MousePos");
-	m.addFloatArg(mouseX);
-	m.addFloatArg(mouseY);
-	
-	Osc.OscSend.sendMessage(m);
+	if(b_SendMousePos){
+		ofxOscMessage m;
+		m.setAddress("/MousePos");
+		m.addFloatArg(mouseX);
+		m.addFloatArg(mouseY);
+		
+		Osc.OscSend.sendMessage(m);
+	}
 }
 
 //--------------------------------------------------------------
@@ -58,7 +58,33 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	switch(key){
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		{
+			ofxOscMessage m;
+			m.setAddress("/key");
+			m.addIntArg(key - '0');
+			
+			Osc.OscSend.sendMessage(m);
+		}
+			
+			break;
+			
+		case  ' ':
+			b_SendMousePos = !b_SendMousePos;
+			printf("b_SendMousePos = %d\n", b_SendMousePos);
+			fflush(stdout);
+			break;
+	}
 }
 
 //--------------------------------------------------------------

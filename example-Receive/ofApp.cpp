@@ -8,7 +8,7 @@
 /******************************
 ******************************/
 ofApp::ofApp()
-: Osc("127.0.0.1", 12346, 12345)
+: Osc("127.0.0.1", -1, 12345)
 {
 }
 
@@ -35,12 +35,8 @@ void ofApp::setup(){
 	ofSetWindowShape(WIDTH, HEIGHT);
 	ofSetEscapeQuitsApp(false);
 	
-	ofEnableAlphaBlending();
-	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	// ofEnableBlendMode(OF_BLENDMODE_ADD);
-	// ofEnableSmoothing();
-	
-
+	ofEnableAntiAliasing();
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA); // OF_BLENDMODE_DISABLED, OF_BLENDMODE_ALPHA, OF_BLENDMODE_ADD
 }
 
 //--------------------------------------------------------------
@@ -54,6 +50,8 @@ void ofApp::update(){
 		if(m_receive.getAddress() == "/MousePos"){
 			OSC_mouseX = m_receive.getArgAsFloat(0);
 			OSC_mouseY = m_receive.getArgAsFloat(1);
+			
+			msg_Unrecognized = "";
 		}else{
 			msg_Unrecognized = m_receive.getAddress();
 			msg_Unrecognized += ":";

@@ -17,6 +17,7 @@ private:
 	};
 	
 	OSC_TARGET Osc;
+	bool b_SendMousePos = true;
 	
 public:
 	ofApp();
