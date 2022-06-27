@@ -16,7 +16,8 @@ private:
 		HEIGHT	= 400,	
 	};
 	
-	OSC_TARGET Osc;
+	OSC_TARGET Osc_key;
+	OSC_TARGET Osc_Mouse;
 	bool b_SendMousePos = true;
 	
 public:
