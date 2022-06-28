@@ -10,6 +10,7 @@
 ofApp::ofApp()
 : Osc_Mouse("127.0.0.1", 12345, -1)
 , Osc_key("127.0.0.1", 12346, -1)
+, Osc_Various("127.0.0.1", 12347, -1)
 {
 }
 
@@ -78,6 +79,24 @@ void ofApp::keyPressed(int key){
 			Osc_key.OscSend.sendMessage(m);
 		}
 			
+			break;
+			
+		case 'v':
+		{
+			ofxOscMessage m;
+			m.setAddress("/various");
+			m.addStringArg("saijo");
+			m.addFloatArg(1.23);
+			m.addIntArg(999);
+			m.addStringArg("nobuhiro");
+			m.addFloatArg(2.45);
+			m.addIntArg(777);
+			m.addStringArg("michael");
+			m.addFloatArg(3.79);
+			m.addIntArg(555);
+			
+			Osc_Various.OscSend.sendMessage(m);
+		}
 			break;
 			
 		case  ' ':

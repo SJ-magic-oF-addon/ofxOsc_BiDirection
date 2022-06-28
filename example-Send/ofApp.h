@@ -18,6 +18,7 @@ private:
 	
 	OSC_TARGET Osc_key;
 	OSC_TARGET Osc_Mouse;
+	OSC_TARGET Osc_Various;
 	bool b_SendMousePos = true;
 	
 public:
